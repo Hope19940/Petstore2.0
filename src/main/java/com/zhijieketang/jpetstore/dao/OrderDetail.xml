@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+namespace的路径需要绑定到对应的接口
+select标签代表的就是查询语句
+select中的id需要和接口中的方法名称相同！！！
+resultType代表着返回结果类型，我们要获取所有的User，所以此处为pojo包中的User类。
+select标签中，填写我们相应的语句。
+-->
+<mapper namespace="com.zhijieketang.jpetstore.dao.OrderDetailDao">
+    <select id="findByPK" resultType="com.zhijieketang.jpetstore.domain.OrderDetail">
+        select orderid,productid,quantity,unitcost from orderdetails where orderid = #{orderid} and productid = #{productid}
+    </select>
+    <select id="create" parameterType="com.zhijieketang.jpetstore.domain.OrderDetail">
+        insert into orderdetails (orderid, productid,quantity,unitcost) values (#{orderid},#{productid},#{quantity},#{unitcost})
+    </select>
+</mapper>

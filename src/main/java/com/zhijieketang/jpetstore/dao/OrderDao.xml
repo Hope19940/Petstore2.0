@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+namespace的路径需要绑定到对应的接口
+select标签代表的就是查询语句
+select中的id需要和接口中的方法名称相同！！！
+resultType代表着返回结果类型，我们要获取所有的User，所以此处为pojo包中的User类。
+select标签中，填写我们相应的语句。
+-->
+<mapper namespace="com.zhijieketang.jpetstore.dao.OrderDao">
+    <select id="findAll" resultType="com.zhijieketang.jpetstore.domain.Order">
+        select orderid,userid,orderdate from orders
+    </select>
+    <select id="findById" resultType="com.zhijieketang.jpetstore.domain.Order">
+        select userid,password,email,name,addr,city,country,phone from accounts where userid = #{userid}"
+    </select>
+</mapper>
+
+
+

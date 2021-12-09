@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 核心配置-->
+
+<!--MyBatis 可以配置成适应多种环境，这种机制有助于将 SQL 映射应用于多种数据库之中，
+现实情况下有多种理由需要这么做。例如，开发、测试和生产环境需要有不同的配置；
+或者想在具有相同 Schema 的多个生产数据库中使用相同的 SQL 映射。还有许多类似的使用场景。-->
+<configuration>
+    <!-- 设置开发环境-->
+    <environments default="development">
+        <!-- 设置了开发环境id = "development"的一个环境子类-->
+        <environment id="development">
+            <!-- 事务管理器-->
+            <!-- 事务管理器配置的tpye有两种形式
+            1、JDBC：这个配置直接使用了JDBC的提交和回滚，它依赖从数据源获得的连接
+            来管理事物作用域
+            2、MANAGED：这个配置几乎没做什么，它从不提交或回滚一个连接，而是让容器
+            来管理事物的整个生命周期，默认情况下他会关闭连接，然而一些容器并不希望连接
+            被关闭，因此需要将closeConnection 属性设置为 false 来阻止默认的关闭行为
+            eg：<transactionManager type="MANAGED">
+                <property name="closeConnection" value="false"/>
+                </transactionManager>-->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库设置-->
+            <dataSource type="POOLED">
+                <!-- 数据库JDBC驱动的全限定类名，name为代名词，方便使用-->
+                <property name="driver" value="${com.mysql.cj.jdbc.Driver}"/>
+                <!-- 数据库的 JDBC URL 地址，url为代名词，方便使用-->
+                <property name="url" value="${jdbc:mysql://localhost:3306/petstore?serverTimezone=Asia/Shanghai}"/>
+                <!-- 数据库的用户名，密码-->
+                <property name="username" value="${root}"/>
+            </dataSource>
+        </environment>
+
+
+    </environments>
+
+    <!--mappers-->
+    <mappers>
+    <!--既然 MyBatis 的行为已经由上述元素配置完了，我们现在就要来定义 SQL 映射语句了。
+    但首先，我们需要告诉 MyBatis 到哪里去找到这些语句。 在自动查找资源方面，Java 并没
+    有提供一个很好的解决方案，所以最好的办法是直接告诉 MyBatis 到哪里去找映射文件。 你
+    可以使用相对于类路径的资源引用，或完全限定资源定位符（包括 file:/// 形式的 URL），
+    或类名和包名等-->
+        <!--一个mapper对于一个XML，xml里面存放的是sql语句-->
+        <mapper resource="com.zhijieketang.jpetstore.dao.AccountDao"/>
+        <mapper resource="com.zhijieketang.jpetstore.dao.OrderDao"/>
+        <mapper resource="com.zhijieketang.jpetstore.dao.OrderDetailDao"/>
+        <mapper resource="com.zhijieketang.jpetstore.dao.ProductDao"/>
+    </mappers>
+
+</configuration>
